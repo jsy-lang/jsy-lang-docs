@@ -4,6 +4,11 @@ Offside (indention) Javascript syntax extension.
 
 Sick of these `{}` and these `;`? Start with JSY today!
 
+- [Operators](#operators)
+- [Keyword Operators](#keyword-operators)
+- [Uncommon Operators](#operators-uncommon-use-cases)
+- [Idioms](#jsy-idioms)
+
 ## Quick Start
 
 ```javascript
