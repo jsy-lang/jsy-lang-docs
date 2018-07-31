@@ -48,7 +48,7 @@ class ExampleApi extends SomeBaseClass ::
       retrieve: data => apiCall @ 'get', data
 ```
 
-Get started with [rollup-plugin-jsy-babel](https://github.com/shanewholloway/rollup-plugin-jsy-babel)
+Get started with [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel)
 
 
 
@@ -380,32 +380,32 @@ const calcScore = v => @
 
 #### Babel 6.x Transpiler (_stable_)
 
-- [rollup-plugin-jsy-babel](https://github.com/shanewholloway/rollup-plugin-jsy-babel)
+- [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel)
   – Babel configuration for using JSY in rollup
 
-- [babel-preset-jsy](https://github.com/shanewholloway/babel-preset-jsy) (_stable_) 
+- [babel-preset-jsy](https://github.com/jsy-lang/babel-preset-jsy) (_stable_) 
   – Babel 6.x preset for offside-based javascript syntax building on babel-preset-env
 
-- [babel-plugin-offside-js](https://github.com/shanewholloway/babel-plugin-offside-js) (_stable_)
+- [babel-plugin-offside-js](https://github.com/jsy-lang/babel-plugin-offside-js) (_stable_)
   – Babel 6.x and Babylon offside (indention) Javascript syntax extension.
 
 ##### Misc Babel-based Tools
 
-- [jsy-rollup-bundler](https://github.com/shanewholloway/jsy-rollup-bundler)
+- [jsy-rollup-bundler](https://github.com/jsy-lang/jsy-rollup-bundler)
   – JSY-oriented rollup bundling build chain for Web UI projects.
 
-- [babel-convert-jsy-from-js](https://github.com/shanewholloway/babel-convert-jsy-from-js)
+- [babel-convert-jsy-from-js](https://github.com/jsy-lang/babel-convert-jsy-from-js)
   – Convert JavaScript, Babel or Babylon AST into offside indented JSY formatted source code.
 
 #### Pure JavaScript Transpiler (_alpha_)
 
-- [rollup-plugin-jsy-lite](https://github.com/shanewholloway/rollup-plugin-jsy-lite)
+- [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite)
   – Rollup JSY syntax transpiler to standard JavaScript — without Babel
 
-- [jsy-transpile](https://github.com/shanewholloway/jsy-transpile) (_alpha_)
+- [jsy-transpile](https://github.com/jsy-lang/jsy-transpile) (_alpha_)
   – Offside (indention) JSY syntax transpiler to standard JavaScript — without Babel
 
-- [jsy-register](https://github.com/shanewholloway/jsy-register) (_prototype_)
+- [jsy-register](https://github.com/jsy-lang/jsy-register) (_prototype_)
   – Register runtime require handler for Offside (indention) JSY syntax transpiler to standard JavaScript.
 
 
@@ -441,11 +441,11 @@ Most JavaScript hightlighters work okay, but could certainly be better.
 
 ## Thanks!
 
-Special thanks to [Robert Sirois](@rpsirois) for making this documentation happen!
+Special thanks to [Robert Sirois](https://github.com/rpsirois) for making this documentation happen!
 
-Thanks to [Brian Brown](@codecleric) for inspiring, pushing, and supporting JSY's creation.
+Thanks to [Brian Brown](https://github.com/codecleric) for inspiring, pushing, and supporting JSY's creation.
 
-Thanks to [Brandon Brown](@RB-Bro) and Larry King for intensive use and feedback on JSY.
+Thanks to [Brandon Brown](https://github.com/RB-Bro) and Larry King for intensive use and feedback on JSY.
 
 ## Licenses
 
