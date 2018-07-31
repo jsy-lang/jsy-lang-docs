@@ -28,7 +28,6 @@ transform code. Thus, as a JavaScript dialect, **JSY automatically keeps pace wi
 
 ## Quick Start
 
-<table style='width: 100%'><tr><th>JSY</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 const apiUrl = 'http://api.example.com'
 
@@ -48,7 +47,6 @@ class ExampleApi extends SomeBaseClass ::
       modify: data => apiCall @ 'send', data
       retrieve: data => apiCall @ 'get', data
 ```
-</tr></table>
 
 Get started with [rollup-plugin-jsy-babel](https://github.com/shanewholloway/rollup-plugin-jsy-babel)
 
@@ -58,12 +56,10 @@ Get started with [rollup-plugin-jsy-babel](https://github.com/shanewholloway/rol
 
 There are at-based (`@`), double colon-based (`::`), and keyword operators (`if`, `for`, `while`, etc.). All operators wrap until the indentation is equal to or farther out than the current line, similar to Python or CoffeeScript. We refer to this as the *indented block*. For example:
 
-<table style='width: 100%'><tr><th>JSY</th></tr><tr><td style='vertical-align: top;'>
   ```javascript
   function add( a, b ) ::
     return a + b
   ```
-</tr></table>
 
 The double colon `::` in the preceding example opens a brace `{` when used, then closes the matching brace `}` when the indentation level matches that of the line it was first used on. The *indented block* is the return statement.
 
@@ -81,47 +77,42 @@ When using an `@`-prefixed operator with multiple items on the same line, commas
 
 The `::` operator wraps the *indented block* in curly braces `{«block»}`.
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 function add( a, b ) ::
   return a + b
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 function add( a, b ) {
   return a + b
 }
 ```
-</tr></table>
 
 #### `@` At – Calling Functions
 The `@` operator on its own wraps the *indented block* in parentheses `(«block»)`, where commas are implicit.
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 console.log @
   add @ 2, 3
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 console.log(
   add( 2, 3 )
 )
 ```
-</tr></table>
 
 #### `@{}` At Braces – Hashes
 The `@{}` operator wraps the *indented block* in curly braces `{«block»}`, where commas are implicit.
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 fetch @ 'http://api.example.com', @{}
   method: 'POST'
   headers: @{}
     'Content-Type': 'application/json'
   body: JSON.stringify @ body
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 fetch( 'http://api.example.com', {
   method: 'POST',
@@ -131,12 +122,10 @@ fetch( 'http://api.example.com', {
   body: JSON.stringify( body )
 })
 ```
-</tr></table>
 
 #### `@:` At Colon – Calling with Hash
 The `@:` operator wraps the *indented block* in parentheses wrapping curly braces `({«block»})`, where commas are implicit.
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 request @:
   url: 'http://api.example.com'
@@ -144,8 +133,8 @@ request @:
   headers: @{}
     'Content-Type': 'application/json'
   body: JSON.stringify @ body
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 request({
   url: 'http://api.example.com',
@@ -156,19 +145,17 @@ request({
   body: JSON.stringify( body )
 })
 ```
-</tr></table>
 
 #### `@[]` At Brackets - Lists
 The `@[]` operator wraps the *indented block* in square brackets `[«block»]`, where commas are implicit.
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 const tri = @[]
   @[]  0.0,  1.0, 0.0
   @[] -1.0, -1.0, 0.0
   @[]  1.0, -1.0, 0.0
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 const tri = [
   [0.0, 1.0, 0.0],
@@ -176,20 +163,18 @@ const tri = [
   [1.0, -1.0, 0.0]
 ]
 ```
-</tr></table>
 
 
 #### `@#` At Pound – Calling with a List
 The `@#` operator wraps the *indented block* in parentheses wrapping square brackets `([«block»])`, where commas are implicit.
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 Promise.all @#
   fetch @ 'http://api.example.com/dosomething'
   fetch @ 'http://api.example.com/dosomethingelse'
   fetch @ 'http://api.example.com/dosomethingmore'
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 Promise.all([
   fetch('http://api.example.com/dosomething'),
@@ -197,19 +182,17 @@ Promise.all([
   fetch('http://api.example.com/dosomethingmore')
 ])
 ```
-</tr></table>
 
 #### `@=>` At Arrow – Arrow Function with No Arguments
 The `@=>` operator wraps the *indented block* in parentheses and begins an arrow function `(()=>«block»)`.
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 const call = fn => fn()
 
 call @=> ::
   console.log @ 'Do cool things with JSY!'
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 const call = fn => fn()
 
@@ -217,20 +200,18 @@ call( () => {
   console.log('Do cool things with JSY!')
 })
 ```
-</tr></table>
 
 #### `@=>>` At Double Arrow – Async Arrow Function with No Arguments
 
 The `@=>>` operator wraps the *indented block* in parentheses and begins an async arrow function `(async ()=>«block»)`.
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 describe @ 'example test suite', @=> ::
   it @ 'some test', @=>> ::
     const res = await fetch @ 'http://api.example.com/dosomething'
     await res.json()
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 describe('example test suite', ( () => {
   it('some test', (async () => {
@@ -239,7 +220,6 @@ describe('example test suite', ( () => {
   }))
 }))
 ```
-</tr></table>
 
 ### Keyword Operators
 
@@ -249,7 +229,6 @@ No special parsing is done for keywords *without* expressions.
 
 #### `if`/`else` and `while`
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 if a > b ::
   console.log @ 'JSY is the best!'
@@ -260,8 +239,8 @@ else ::
   
 while 0 != q.length ::
   console.log @ q.pop()
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 if (a > b) {
   console.log('JSY is the best!')
@@ -275,11 +254,9 @@ while (0 != q.length) {
   console.log(q.pop())
 }
 ```
-</tr></table>
 
 #### `for`
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 for let i = 0; i < 10; i++ ::
   console.log @: i
@@ -289,8 +266,8 @@ for const val of [1,'two',0xa] ::
   
 for await const ea of someAsyncGenerator() ::
   console.log @: ea
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 for (let i = 0; i < 10; i++) {
   console.log({i})
@@ -304,11 +281,9 @@ for await (const ea of someAsyncGenerator()) {
   console.log({ea})
 }
 ```
-</tr></table>
 
 #### `try`, `catch`, and `finally`
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 try ::
   if 0.5 > Math.random() ::
@@ -317,8 +292,8 @@ catch err ::
   console.error @ err
 finally ::
   console.log @ 'Finally.'
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 try {
   if (0.5 > Math.random()) {
@@ -330,11 +305,9 @@ try {
   console.log('Finally.')
 }
 ```
-</tr></table>
 
 #### `switch`
 
-<table style='width: 100%'><tr><th>JSY</th><th>JavaScript</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 switch command ::
   case 'play':
@@ -345,8 +318,8 @@ switch command ::
     break
   default:
     player.stop().eject()
-
-``` <td style='vertical-align: top;'>
+```
+Translated to JavaScript:
 ```javascript
 switch (command) {
   case 'play':
@@ -359,7 +332,6 @@ switch (command) {
     player.stop().eject()
 }
 ```
-</tr></table>
 
 ### Operators (Uncommon Use Cases)
 
@@ -379,18 +351,15 @@ A few examples of why JSY is awesome.
 
 ### Idiom #1 – Arrow Function Returning Hash
 
-<table style='width: 100%'><tr><th>JSY</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 res.data.map @
   personData => @:
     fullName: `${ personData.info.fName } ${ personData.info.lName }`
     dateOfBirth: moment @ personData.info.dob
 ```
-</tr></table>
 
 ### Idiom #2 – Arrow Function Compose
 
-<table style='width: 100%'><tr><th>JSY</th></tr><tr><td style='vertical-align: top;'>
 ```javascript
 function double(x) :: return x + x
 function add(x, y) :: return x + y
@@ -404,7 +373,6 @@ const calcScore = v => @
   v = add @ 7, v
   v = clamp @ 0, 100, v
 ```
-</tr></table>
 
 
 
