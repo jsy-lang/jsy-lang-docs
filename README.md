@@ -28,6 +28,10 @@ transform code. Thus, as a JavaScript dialect, **JSY automatically keeps pace wi
 
 ## Quick Start
 
+Start with [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite).
+
+JSY Sample Code:
+
 ```javascript
 const apiUrl = 'http://api.example.com'
 
@@ -48,8 +52,6 @@ class ExampleApi extends SomeBaseClass ::
       retrieve: data => apiCall @ 'get', data
 ```
 
-Get started with [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel)
-
 
 
 ## Reference
@@ -63,13 +65,37 @@ There are at-based (`@`), double colon-based (`::`), and keyword operators (`if`
 
 The double colon `::` in the preceding example opens a brace `{` when used, then closes the matching brace `}` when the indentation level matches that of the line it was first used on. The *indented block* is the return statement.
 
-### Implicit (Leading) Commas
+### Implicit Leading Commas
 
-When using any `@`-prefixed operator and starting a new indented line, multiple items can be listed without commas.
+Commas are implicit at the first indent under any `@`-prefixed operator.
 
-Referencing the quick start example: `add`, `modify`, and `retrieve` are at the same indent level, which would normally require commas in JavaScript. JSY will attempt to add those commas automatically. If this would result in a syntax error, then JSY assumes the expression is valid without them.
+```javascript
+console.log @
+  "the"
+  answer, "is"
+  42
+```
+Translated to JavaScript:
+```javascript
+console.log(
+   "the"
+ , answer, "is"
+ , 42 )
+```
 
-When using an `@`-prefixed operator with multiple items on the same line, commas must be used.
+Explicit commas are respected.
+
+```javascript
+console.log @
+    "or use"
+  , "explicit commas"
+```
+Translated to JavaScript:
+```javascript
+console.log(
+    "or use"
+  , "explicit commas")
+```
 
 ### Operators
 
@@ -378,6 +404,18 @@ const calcScore = v => @
 
 ## Ecosystem
 
+#### Pure JavaScript Transpiler (_stable_)
+
+- [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite)
+  – Rollup JSY syntax transpiler to standard JavaScript — without Babel
+
+- [jsy-transpile](https://github.com/jsy-lang/jsy-transpile) (_alpha_)
+  – Offside (indention) JSY syntax transpiler to standard JavaScript — without Babel
+
+- [jsy-register](https://github.com/jsy-lang/jsy-register) (_prototype_)
+  – Register runtime require handler for Offside (indention) JSY syntax transpiler to standard JavaScript.
+
+
 #### Babel 6.x Transpiler (_stable_)
 
 - [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel)
@@ -396,18 +434,6 @@ const calcScore = v => @
 
 - [babel-convert-jsy-from-js](https://github.com/jsy-lang/babel-convert-jsy-from-js)
   – Convert JavaScript, Babel or Babylon AST into offside indented JSY formatted source code.
-
-#### Pure JavaScript Transpiler (_alpha_)
-
-- [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite)
-  – Rollup JSY syntax transpiler to standard JavaScript — without Babel
-
-- [jsy-transpile](https://github.com/jsy-lang/jsy-transpile) (_alpha_)
-  – Offside (indention) JSY syntax transpiler to standard JavaScript — without Babel
-
-- [jsy-register](https://github.com/jsy-lang/jsy-register) (_prototype_)
-  – Register runtime require handler for Offside (indention) JSY syntax transpiler to standard JavaScript.
-
 
 
 ### Needs
