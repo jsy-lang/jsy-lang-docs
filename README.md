@@ -409,7 +409,7 @@ const calcScore = v => @
 - [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite)
   – Rollup JSY syntax transpiler to standard JavaScript — without Babel
 
-- [jsy-transpile](https://github.com/jsy-lang/jsy-transpile) (_alpha_)
+- [jsy-transpile](https://github.com/jsy-lang/jsy-transpile) (_stable_)
   – Offside (indention) JSY syntax transpiler to standard JavaScript — without Babel
 
 - [jsy-register](https://github.com/jsy-lang/jsy-register) (_prototype_)
