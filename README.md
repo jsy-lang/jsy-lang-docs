@@ -30,7 +30,7 @@ transform code. Thus, as a JavaScript dialect, **JSY automatically keeps pace wi
 
 Start with [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite).
 
-JSY Sample Code:
+Sample JSY code:
 
 ```javascript
 const apiUrl = 'http://api.example.com'
