@@ -412,7 +412,7 @@ const calcScore = v => @
 - [jsy-transpile](https://github.com/jsy-lang/jsy-transpile) (_stable_)
   – Offside (indention) JSY syntax transpiler to standard JavaScript — without Babel
 
-- [jsy-register](https://github.com/jsy-lang/jsy-register) (_prototype_)
+- [jsy-node](https://github.com/jsy-lang/jsy-node) (_prototype_)
   – Register runtime require handler for Offside (indention) JSY syntax transpiler to standard JavaScript.
 
 
