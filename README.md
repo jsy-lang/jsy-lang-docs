@@ -452,6 +452,13 @@ $ mocha --require jsy-node/all some-unittest.jsy
   – Convert JavaScript, Babel or Babylon AST into offside indented JSY formatted source code.
 
 
+#### Syntax Highlighters
+
+- [jsy-lang/vim-jsy](https://github.com/jsy-lang/vim-jsy)
+  - Basic VIM/GVIM support for the JSY JavaScript dialect. Extends the builtin
+    VIM javascript syntax, making it much less advanced than extensions like
+    [othree/yajs](https://github.com/othree/yajs)
+
 ### Needs
 
 #### Syntax highlighters
