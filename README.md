@@ -400,6 +400,22 @@ const calcScore = v => @
   v = clamp @ 0, 100, v
 ```
 
+## JSY Integration with Other Tools
+
+### Using `jsy-node` with NodeJS
+
+#### Command Line
+
+```bash
+$ npm install -g jsy-node
+$ jsy-node some-script.jsy
+```
+
+#### [Mocha](https://mochajs.org/)
+
+```bash
+$ mocha --require jsy-node/all some-unittest.jsy
+```
 
 
 ## Ecosystem
