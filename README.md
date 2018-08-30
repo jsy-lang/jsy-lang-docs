@@ -28,7 +28,7 @@ transform code. Thus, as a JavaScript dialect, **JSY automatically keeps pace wi
 
 ## Quick Start
 
-Start with [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite).
+Start with [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite#readme).
 
 Sample JSY code:
 
@@ -422,39 +422,45 @@ $ mocha --require jsy-node/all some-unittest.jsy
 
 #### Pure JavaScript Transpiler (_stable_)
 
-- [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite)
+- [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite#readme)
   – Rollup JSY syntax transpiler to standard JavaScript — without Babel
 
-- [jsy-transpile](https://github.com/jsy-lang/jsy-transpile) (_stable_)
+- [jsy-transpile](https://github.com/jsy-lang/jsy-transpile#readme) (_stable_)
   – Offside (indention) JSY syntax transpiler to standard JavaScript — without Babel
 
-- [jsy-node](https://github.com/jsy-lang/jsy-node) (_prototype_)
+- [jsy-node](https://github.com/jsy-lang/jsy-node#readme) (_prototype_)
   – Register runtime require handler for Offside (indention) JSY syntax transpiler to standard JavaScript.
 
 
-#### Babel 6.x Transpiler (_stable_)
+#### Babel 6.x & 7.x Transpiler (_newer, beta_)
 
-- [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel)
+- [babel-plugin-jsy-lite](https://github.com/jsy-lang/babel-plugin-jsy-lite#readme) (_newer, beta_)
+  – Babel 6.x & 7.x and jsy-transpile offside (indention) Javascript syntax extension.
+
+
+#### Babel + Babylon 6.x Transpiler (_older, stable_)
+
+- [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel#readme) (_stable_)
   – Babel configuration for using JSY in rollup
 
-- [babel-preset-jsy](https://github.com/jsy-lang/babel-preset-jsy) (_stable_) 
+- [babel-preset-jsy](https://github.com/jsy-lang/babel-preset-jsy#readme) (_older, stable_) 
   – Babel 6.x preset for offside-based javascript syntax building on babel-preset-env
 
-- [babel-plugin-offside-js](https://github.com/jsy-lang/babel-plugin-offside-js) (_stable_)
+- [babel-plugin-offside-js](https://github.com/jsy-lang/babel-plugin-offside-js#readme) (_older, stable_)
   – Babel 6.x and Babylon offside (indention) Javascript syntax extension.
 
 ##### Misc Babel-based Tools
 
-- [jsy-rollup-bundler](https://github.com/jsy-lang/jsy-rollup-bundler)
+- [jsy-rollup-bundler](https://github.com/jsy-lang/jsy-rollup-bundler#readme)
   – JSY-oriented rollup bundling build chain for Web UI projects.
 
-- [babel-convert-jsy-from-js](https://github.com/jsy-lang/babel-convert-jsy-from-js)
+- [babel-convert-jsy-from-js](https://github.com/jsy-lang/babel-convert-jsy-from-js#readme)
   – Convert JavaScript, Babel or Babylon AST into offside indented JSY formatted source code.
 
 
 #### Syntax Highlighters
 
-- [jsy-lang/vim-jsy](https://github.com/jsy-lang/vim-jsy)
+- [jsy-lang/vim-jsy](https://github.com/jsy-lang/vim-jsy#readme)
   - Basic VIM/GVIM support for the JSY JavaScript dialect. Extends the builtin
     VIM javascript syntax, making it much less advanced than extensions like
     [othree/yajs](https://github.com/othree/yajs)
