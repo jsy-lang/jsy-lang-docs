@@ -420,34 +420,35 @@ $ mocha --require jsy-node/all some-unittest.jsy
 
 ## Ecosystem
 
+ [Babel]: https://babeljs.io/
+ [Rollup]: https://rollupjs.org
+
 #### Pure JavaScript Transpiler (_stable_)
 
 - [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite#readme)
-  – Rollup JSY syntax transpiler to standard JavaScript — without Babel
+  – [Rollup][] JSY syntax transpiler to standard JavaScript — without Babel
 
 - [jsy-transpile](https://github.com/jsy-lang/jsy-transpile#readme) (_stable_)
   – Offside (indention) JSY syntax transpiler to standard JavaScript — without Babel
 
-- [jsy-node](https://github.com/jsy-lang/jsy-node#readme) (_prototype_)
+- [jsy-node](https://github.com/jsy-lang/jsy-node#readme) (_beta_)
   – Register runtime require handler for Offside (indention) JSY syntax transpiler to standard JavaScript.
 
 
-#### Babel 6.x & 7.x Transpiler (_newer, beta_)
+#### Babel Transpiler (_newer, beta_)
 
-- [babel-plugin-jsy-lite](https://github.com/jsy-lang/babel-plugin-jsy-lite#readme) (_newer, beta_)
-  – Babel 6.x & 7.x and jsy-transpile offside (indention) Javascript syntax extension.
-
-
-#### Babel + Babylon 6.x Transpiler (_older, stable_)
-
-- [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel#readme) (_stable_)
-  – Babel configuration for using JSY in rollup
-
-- [babel-preset-jsy](https://github.com/jsy-lang/babel-preset-jsy#readme) (_older, stable_) 
-  – Babel 6.x preset for offside-based javascript syntax building on babel-preset-env
+- [babel-plugin-jsy-lite](https://github.com/jsy-lang/babel-plugin-jsy-lite#readme) (_**newer**, beta_)
+  – [Babel][] 6.x & 7.x and jsy-transpile offside (indention) Javascript syntax extension.
 
 - [babel-plugin-offside-js](https://github.com/jsy-lang/babel-plugin-offside-js#readme) (_older, stable_)
-  – Babel 6.x and Babylon offside (indention) Javascript syntax extension.
+  – [Babel][] 6.x and Babylon offside (indention) Javascript syntax extension.
+
+- [babel-preset-jsy](https://github.com/jsy-lang/babel-preset-jsy#readme) (_stable_) 
+  – [Babel][] 6.x preset for offside-based javascript syntax building on babel-preset-env
+
+- [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel#readme) (_stable_)
+  – [Babel][] configuration for using `babel-preset-jsy` in [Rollup][]
+
 
 ##### Misc Babel-based Tools
 
@@ -465,17 +466,23 @@ $ mocha --require jsy-node/all some-unittest.jsy
     VIM javascript syntax, making it much less advanced than extensions like
     [othree/yajs](https://github.com/othree/yajs)
 
-### Needs
+- Hacked together [JSY CodeMirror mode](https://github.com/jsy-lang/jsy-lang.github.io/blob/master/js/mode/jsy/jsy.js) from the JavaScript mode.
 
-#### Syntax highlighters
+
+### Real Syntax Highlighters Needed!
 Most JavaScript hightlighters work okay, but could certainly be better.
 
-- for [VIM / GVIM](https://www.vim.org/)
-- for [highlight.js](https://highlightjs.org/)
-- for [CodeMirror](https://codemirror.net/)
-- for [Prism](https://prismjs.com/)
-- for [Pygments](http://pygments.org/)
-- for Atom and VSCode editors – use the babel-based highlighter! It works great.
+- Highlighter Libraries:
+  - for [highlight.js](https://highlightjs.org/)
+  - for [Prism](https://prismjs.com/)
+  - for [Pygments](http://pygments.org/)
+
+- Code Editors:
+  - for [CodeMirror](https://codemirror.net/)
+  - for [VIM / GVIM](https://www.vim.org/)
+  - for Sublime – use the [babel-sublime](https://github.com/babel/babel-sublime#installation) plugin
+  - for Atom – use the [language-babel](https://atom.io/packages/language-babel) plugin
+  - for VSCode – use the [sublime-babel-vscode](https://marketplace.visualstudio.com/items?itemName=joshpeng.sublime-babel-vscode) or the [vscode-language-babel](https://marketplace.visualstudio.com/items?itemName=mgmcdermott.vscode-language-babel) plugin
 
 
 ## Projects using JSY
