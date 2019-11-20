@@ -430,10 +430,10 @@ $ mocha --require jsy-node/all some-unittest.jsy
   – [Rollup][] JSY syntax transpiler to standard JavaScript — without Babel
 
 - [parcel-plugin-jsy](https://github.com/jsy-lang/parcel-plugin-jsy#readme) (_beta_)
-  – [Parcel 1.x][] JSY syntax transpiler to standard JavaScript — without Babel
+  – [Parcel][] 1.x JSY syntax transpiler to standard JavaScript — without Babel
 
 - [parcel-transform-jsy](https://github.com/jsy-lang/parcel-transform-jsy#readme) (_beta_)
-  – [Parcel 2.x][] JSY syntax transpiler to standard JavaScript — without Babel
+  – [Parcel][] 2.x JSY syntax transpiler to standard JavaScript — without Babel
 
 - [jsy-transpile](https://github.com/jsy-lang/jsy-transpile#readme) (_stable_)
   – Offside (indention) JSY syntax transpiler to standard JavaScript — without Babel
