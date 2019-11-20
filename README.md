@@ -420,13 +420,20 @@ $ mocha --require jsy-node/all some-unittest.jsy
 
 ## Ecosystem
 
- [Babel]: https://babeljs.io/
+ [Babel]: https://babeljs.io
  [Rollup]: https://rollupjs.org
+ [Parcel]: https://parceljs.org
 
 #### Pure JavaScript Transpiler (_stable_)
 
 - [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite#readme)
   – [Rollup][] JSY syntax transpiler to standard JavaScript — without Babel
+
+- [parcel-plugin-jsy](https://github.com/jsy-lang/parcel-plugin-jsy#readme) (_beta_)
+  – [Parcel 1.x][] JSY syntax transpiler to standard JavaScript — without Babel
+
+- [parcel-transform-jsy](https://github.com/jsy-lang/parcel-transform-jsy#readme) (_beta_)
+  – [Parcel 2.x][] JSY syntax transpiler to standard JavaScript — without Babel
 
 - [jsy-transpile](https://github.com/jsy-lang/jsy-transpile#readme) (_stable_)
   – Offside (indention) JSY syntax transpiler to standard JavaScript — without Babel
