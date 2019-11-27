@@ -22,6 +22,7 @@ transform code. Thus, as a JavaScript dialect, **JSY automatically keeps pace wi
   - [Keyword Operators](#keyword-operators) – `if 0 == arr.length :: «block»`
   - [Uncommon Operators](#operators-uncommon-use-cases)
   - [Idioms](#jsy-idioms)
+  - [Integrations](#jsy-integration-with-other-tools)
 
 - [Ecosystem](#ecosystem)
 - [Projects Using JSY](#projects-using-jsy)
