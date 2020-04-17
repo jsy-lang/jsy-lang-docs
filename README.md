@@ -27,9 +27,11 @@ transform code. Thus, as a JavaScript dialect, **JSY automatically keeps pace wi
 - [Ecosystem](#ecosystem)
 - [Projects Using JSY](#projects-using-jsy)
 
+
+
 ## Quick Start
 
-Start with [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite#readme).
+Start with [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite#readme) or use the [playground](https://jsy-lang.github.io/)!
 
 Sample JSY code:
 
@@ -46,7 +48,7 @@ class ExampleApi extends SomeBaseClass ::
         body: JSON.stringify @ body
 
       return await res.json()
-      
+
     Object.assign @ this, @{}
       add: data => apiCall @ 'add', data
       modify: data => apiCall @ 'send', data
@@ -210,8 +212,11 @@ Promise.all([
 ])
 ```
 
-#### `@=>` At Arrow – Arrow Function with No Arguments
-The `@=>` operator wraps the *indented block* in parentheses and begins an arrow function `(()=>«block»)`.
+#### `@=>` At Arrow – Arrow Function Expression with No Arguments
+
+The `@=>` operator wraps the *indented block* in parentheses and begins an arrow function `(()=> «block»)`.
+
+The `@=>>` operator wraps the *indented block* in parentheses and begins an async arrow function `(async ()=> «block»)`.
 
 ```javascript
 const call = fn => fn()
@@ -220,6 +225,7 @@ call @=> ::
   console.log @ 'Do cool things with JSY!'
 ```
 Translated to JavaScript:
+
 ```javascript
 const call = fn => fn()
 
@@ -228,25 +234,149 @@ call( () => {
 })
 ```
 
-#### `@=>>` At Double Arrow – Async Arrow Function with No Arguments
+#### `@::` At Block – Arrow Function Block with No Arguments
 
-The `@=>>` operator wraps the *indented block* in parentheses and begins an async arrow function `(async ()=>«block»)`.
+The `@::` operator wraps the *indented block* in parentheses and begins an arrow function block `(()=> { «block» })`.
+
+The `@::>` operator wraps the *indented block* in parentheses and begins an async arrow function block `(async ()=> { «block» })`.
+
 
 ```javascript
-describe @ 'example test suite', @=> ::
-  it @ 'some test', @=>> ::
+describe @ 'example test suite', @::
+  it @ 'some test', @::>
     const res = await fetch @ 'http://api.example.com/dosomething'
     await res.json()
 ```
+
 Translated to JavaScript:
+
 ```javascript
-describe('example test suite', ( () => {
+describe('example test suite', (() => {
   it('some test', (async () => {
     const res = await fetch('http://api.example.com/dosomething')
-    await res.json()
-  }))
-}))
+    await res.json()}) ) }) )
 ```
+
+#### Arrow functions with Arguments
+
+```javascript
+// multiple arguments
+const fn_body = @\ a, b, c ::
+  body
+
+const fn_body = @\ ...args =>
+  expression
+
+
+// first argument object destructure
+const fn_obj_body = @\: a, b, c ::
+  body
+
+const fn_obj_expr = @\: a, b, c =>
+  expression
+
+// first argument array destructure
+const fn_arr_body = @\# a, b, c ::
+  body
+
+const fn_arr_expr = @\# a, b, c =>
+  expression
+```
+
+Translated to JavaScript:
+
+```javascript
+// multiple arguments
+const fn_body = (( a, b, c ) => {
+  body})
+
+const fn_body = (( ...args ) =>
+  expression)
+
+
+// first argument object destructure
+const fn_obj_body = (({ a, b, c }) => {
+  body})
+
+const fn_obj_expr = (({ a, b, c }) =>
+  expression)
+
+// first argument array destructure
+const fn_arr_body = (([ a, b, c ]) => {
+  body})
+
+const fn_arr_expr = (([ a, b, c ]) =>
+  expression)
+```
+
+
+#### `::!` and `@!` - Bang Immediately Invoked Expressions
+
+The `::!` operator wraps the *indented block* in a function, then invokes it `{(() => {«block»})()}` in a block with no return value.
+
+The `@!` operator wraps the *indented block* in a function, then invokes it `(() => {«block»})()` as an assignable expression.
+
+```javascript
+const a_value = @!
+  const a = 1
+  const b = 2
+  return a + b
+
+::!
+  console.log @ 'Starting server...'
+  startServer @ '1337', ()=> console.log @ 'Server online.'
+```
+
+Translated to JavaScript:
+
+```javascript
+const a_value = ((() => {
+  const a = 1
+  const b = 2
+  return a + b })())
+
+{(()=>{
+  console.log('Starting server...')
+  startServer('1337', ()=> console.log('Server online.')) })()}
+```
+
+#### `::!>` and `@!>` - Bang Async Immediately Invoked Expressions
+
+The `::!>` operator wraps the *indented block* in an async function, then invokes it `{(async ()=>{«block»})()}` in a block with no return value.
+
+The `@!>` operator wraps the *indented block* in an async function, then invokes it `(async ()=>{«block»})()` as an assignable expression.
+
+```javascript
+const promise_value = @!>
+  const a = await Promise.resolve @ 1
+  const b = await Promise.resolve @ 2
+  return a + b
+
+::!>
+  console.log @ 'Starting server...'
+  await new Promise @\ resolve ::
+    startServer @ '1337', resolve
+
+  console.log @ 'Server online.'
+```
+
+Translated to JavaScript:
+
+```javascript
+const promise_value = ((async () => {
+  const a = await Promise.resolve(1)
+  const b = await Promise.resolve(2)
+  return a + b})())
+
+{(async ()=>{
+  console.log('Starting server...')
+  await new Promise (( resolve ) => {
+    startServer('1337', resolve) })
+
+  console.log('Server online.') })()}
+```
+
+
 
 ### Keyword Operators
 
@@ -254,7 +384,7 @@ For keywords with expressions, when not followed by a paren, everything between 
 
 No special parsing is done for keywords *without* expressions.
 
-#### `if`/`else` and `while`
+#### `if`/`else`, `while`, and `do`/`while`
 
 ```javascript
 if a > b ::
@@ -263,11 +393,17 @@ else if a < b ::
   console.log @ 'JSY rocks!'
 else ::
   console.log @ 'JSY is still awesome!'
-  
+
 while 0 != q.length ::
   console.log @ q.pop()
+
+do ::
+  console.log @ 'It is a song that never ends...'
+while 1
 ```
+
 Translated to JavaScript:
+
 ```javascript
 if (a > b) {
   console.log('JSY is the best!')
@@ -280,6 +416,10 @@ if (a > b) {
 while (0 != q.length) {
   console.log(q.pop())
 }
+
+do {
+  console.log("It is a song that never ends...");
+} while (1);
 ```
 
 #### `for`
@@ -287,19 +427,20 @@ while (0 != q.length) {
 ```javascript
 for let i = 0; i < 10; i++ ::
   console.log @: i
-  
+
 for const val of [1,'two',0xa] ::
   console.log @: val
-  
+
 for await const ea of someAsyncGenerator() ::
   console.log @: ea
 ```
+
 Translated to JavaScript:
 ```javascript
 for (let i = 0; i < 10; i++) {
   console.log({i})
 }
-  
+
 for (const val of [1,'two',0xa]) {
   console.log({val})
 }
@@ -347,6 +488,7 @@ switch command ::
     player.stop().eject()
 ```
 Translated to JavaScript:
+
 ```javascript
 switch (command) {
   case 'play':
@@ -371,6 +513,7 @@ Uncommon use cases for `::`-prefixed operators require explicit commas, whereas 
 | `::()`            |           | `@`         |
 | `::@`             | `::()`    | `@`         |
 | `@()`             | `@`       | `@`         |
+
 
 ## JSY Idioms
 
@@ -451,7 +594,7 @@ $ mocha --require jsy-node/all some-unittest.jsy
 - [babel-plugin-offside-js](https://github.com/jsy-lang/babel-plugin-offside-js#readme) (_older, stable_)
   – [Babel][] 6.x and Babylon offside (indention) Javascript syntax extension.
 
-- [babel-preset-jsy](https://github.com/jsy-lang/babel-preset-jsy#readme) (_stable_) 
+- [babel-preset-jsy](https://github.com/jsy-lang/babel-preset-jsy#readme) (_stable_)
   – [Babel][] 6.x preset for offside-based javascript syntax building on babel-preset-env
 
 - [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel#readme) (_stable_)
