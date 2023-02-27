@@ -2,7 +2,7 @@
 
 JSY is **an indented (offside) JavaScript dialect**. We believe indentation is
 better at describing code blocks instead of painstakingly matching open/close
-sections `{ } () []`.
+sections `{} () []`.
 
 Think modern JavaScript — ES6, ES2018 — indented similar to [Python][] or [CoffeeScript][].
 
@@ -12,22 +12,19 @@ open/close matching token code. Thus the internal scanning parser only has to
 be aware of `/* comments */` and `"string literals"` rules to successfully
 transform code. Thus, as a JavaScript dialect, **JSY automatically keeps pace with modern JavaScript editions!**
 
- [Python]: https://www.python.org
- [CoffeeScript]: https://coffeescript.org
- [Wisp]: http://www.draketo.de/english/wisp
+[Python]: https://www.python.org
+[CoffeeScript]: https://coffeescript.org
+[Wisp]: http://www.draketo.de/english/wisp
 
-
+- [Interactive Playground](https://jsy-lang.github.io)
 - [Reference]()
   - [Operators](#operators) – `Promise.race @# api_call(), timeout(ms)`
   - [Keyword Operators](#keyword-operators) – `if 0 == arr.length :: «block»`
   - [Uncommon Operators](#operators-uncommon-use-cases)
   - [Idioms](#jsy-idioms)
   - [Integrations](#jsy-integration-with-other-tools)
-
 - [Ecosystem](#ecosystem)
 - [Projects Using JSY](#projects-using-jsy)
-
-
 
 ## Quick Start
 
@@ -36,6 +33,7 @@ Start with [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-js
 Sample JSY code:
 
 ```javascript
+// JSY
 const apiUrl = 'http://api.example.com'
 
 class ExampleApi extends SomeBaseClass ::
@@ -55,13 +53,12 @@ class ExampleApi extends SomeBaseClass ::
       retrieve: data => apiCall @ 'get', data
 ```
 
-
-
 ## Reference
 
 There are at-based (`@`), double colon-based (`::`), and keyword operators (`if`, `for`, `while`, etc.). All operators wrap until the indentation is equal to or farther out than the current line, similar to Python or CoffeeScript. We refer to this as the *indented block*. For example:
 
   ```javascript
+  // JSY
   function add( a, b ) ::
     return a + b
   ```
@@ -73,13 +70,17 @@ The double colon `::` in the preceding example opens a brace `{` when used, then
 Commas are implicit at the first indent under any `@`-prefixed operator.
 
 ```javascript
+// JSY
 console.log @
   "the"
   answer, "is"
   42
 ```
+
 Translated to JavaScript:
+
 ```javascript
+// JavaScript
 console.log(
    "the"
  , answer, "is"
@@ -89,12 +90,16 @@ console.log(
 Explicit commas are respected.
 
 ```javascript
+// JSY
 console.log @
     "or use"
   , "explicit commas"
 ```
+
 Translated to JavaScript:
+
 ```javascript
+// JavaScript
 console.log(
     "or use"
   , "explicit commas")
@@ -121,11 +126,15 @@ function add( a, b ) {
 The `@` operator on its own wraps the *indented block* in parentheses `(«block»)`, where commas are implicit.
 
 ```javascript
+// JSY
 console.log @
   add @ 2, 3
 ```
+
 Translated to JavaScript:
+
 ```javascript
+// JavaScript
 console.log(
   add( 2, 3 )
 )
@@ -135,14 +144,18 @@ console.log(
 The `@{}` operator wraps the *indented block* in curly braces `{«block»}`, where commas are implicit.
 
 ```javascript
+// JSY
 fetch @ 'http://api.example.com', @{}
   method: 'POST'
   headers: @{}
     'Content-Type': 'application/json'
   body: JSON.stringify @ body
 ```
+
 Translated to JavaScript:
+
 ```javascript
+// JavaScript
 fetch( 'http://api.example.com', {
   method: 'POST',
   headers: {
@@ -156,6 +169,7 @@ fetch( 'http://api.example.com', {
 The `@:` operator wraps the *indented block* in parentheses wrapping curly braces `({«block»})`, where commas are implicit.
 
 ```javascript
+// JSY
 request @:
   url: 'http://api.example.com'
   method: 'POST'
@@ -163,8 +177,11 @@ request @:
     'Content-Type': 'application/json'
   body: JSON.stringify @ body
 ```
+
 Translated to JavaScript:
+
 ```javascript
+// JavaScript
 request({
   url: 'http://api.example.com',
   method: 'POST',
@@ -179,13 +196,17 @@ request({
 The `@[]` operator wraps the *indented block* in square brackets `[«block»]`, where commas are implicit.
 
 ```javascript
+// JSY
 const tri = @[]
   @[]  0.0,  1.0, 0.0
   @[] -1.0, -1.0, 0.0
   @[]  1.0, -1.0, 0.0
 ```
+
 Translated to JavaScript:
+
 ```javascript
+// JavaScript
 const tri = [
   [0.0, 1.0, 0.0],
   [-1.0, -1.0, 0.0],
@@ -198,13 +219,17 @@ const tri = [
 The `@#` operator wraps the *indented block* in parentheses wrapping square brackets `([«block»])`, where commas are implicit.
 
 ```javascript
+// JSY
 Promise.all @#
   fetch @ 'http://api.example.com/dosomething'
   fetch @ 'http://api.example.com/dosomethingelse'
   fetch @ 'http://api.example.com/dosomethingmore'
 ```
+
 Translated to JavaScript:
+
 ```javascript
+// JavaScript
 Promise.all([
   fetch('http://api.example.com/dosomething'),
   fetch('http://api.example.com/dosomethingelse'),
@@ -219,19 +244,36 @@ The `@=>` operator wraps the *indented block* in parentheses and begins an arrow
 The `@=>>` operator wraps the *indented block* in parentheses and begins an async arrow function `(async ()=> «block»)`.
 
 ```javascript
+// JSY
 const call = fn => fn()
 
 call @=> ::
   console.log @ 'Do cool things with JSY!'
 ```
+
 Translated to JavaScript:
 
 ```javascript
+// JavaScript
 const call = fn => fn()
 
 call( () => {
   console.log('Do cool things with JSY!')
 })
+```
+
+Asynchronous:
+
+```javascript
+// JSY
+const fn = @=>> await dothings()
+```
+
+Translated to JavaScript:
+
+```javascript
+// JavaScript
+const fn = async () => await dothings();
 ```
 
 #### `@::` At Block – Arrow Function Block with No Arguments
@@ -242,6 +284,7 @@ The `@::>` operator wraps the *indented block* in parentheses and begins an asyn
 
 
 ```javascript
+// JSY
 describe @ 'example test suite', @::
   it @ 'some test', @::>
     const res = await fetch @ 'http://api.example.com/dosomething'
@@ -251,6 +294,7 @@ describe @ 'example test suite', @::
 Translated to JavaScript:
 
 ```javascript
+// JavaScript
 describe('example test suite', (() => {
   it('some test', (async () => {
     const res = await fetch('http://api.example.com/dosomething')
@@ -259,14 +303,35 @@ describe('example test suite', (() => {
 
 #### Arrow functions with Arguments
 
+Keep in mind JSY does not change anything about the special case lambda expression with a single argument, for example:
+
 ```javascript
+// JSY
+something @:
+  evt: e => this.handle @ e
+```
+
+Would still require the "opener" `@\` in order to declare more than one argument, eg.:
+
+```javascript
+// JSY
+something @:
+  evt: @\ e, f => this.handle @ e, f
+```
+
+Other arrow expressions:
+
+```javascript
+// JSY
+// async
+const fn = async e => await handle @ e
+
 // multiple arguments
 const fn_body = @\ a, b, c ::
   body
 
 const fn_body = @\ ...args =>
   expression
-
 
 // first argument object destructure
 const fn_obj_body = @\: a, b, c ::
@@ -286,13 +351,16 @@ const fn_arr_expr = @\# a, b, c =>
 Translated to JavaScript:
 
 ```javascript
+// JavaScript
+// async
+const fn = async e => await handle(e)
+
 // multiple arguments
 const fn_body = (( a, b, c ) => {
   body})
 
 const fn_body = (( ...args ) =>
   expression)
-
 
 // first argument object destructure
 const fn_obj_body = (({ a, b, c }) => {
@@ -309,7 +377,6 @@ const fn_arr_expr = (([ a, b, c ]) =>
   expression)
 ```
 
-
 #### `::!` and `@!` - Bang Immediately Invoked Expressions
 
 The `::!` operator wraps the *indented block* in a function, then invokes it `{(() => {«block»})()}` in a block with no return value.
@@ -317,6 +384,7 @@ The `::!` operator wraps the *indented block* in a function, then invokes it `{(
 The `@!` operator wraps the *indented block* in a function, then invokes it `(() => {«block»})()` as an assignable expression.
 
 ```javascript
+// JSY
 const a_value = @!
   const a = 1
   const b = 2
@@ -330,6 +398,7 @@ const a_value = @!
 Translated to JavaScript:
 
 ```javascript
+// JavaScript
 const a_value = ((() => {
   const a = 1
   const b = 2
@@ -347,6 +416,7 @@ The `::!>` operator wraps the *indented block* in an async function, then invoke
 The `@!>` operator wraps the *indented block* in an async function, then invokes it `(async ()=>{«block»})()` as an assignable expression.
 
 ```javascript
+// JSY
 const promise_value = @!>
   const a = await Promise.resolve @ 1
   const b = await Promise.resolve @ 2
@@ -363,6 +433,7 @@ const promise_value = @!>
 Translated to JavaScript:
 
 ```javascript
+// JavaScript
 const promise_value = ((async () => {
   const a = await Promise.resolve(1)
   const b = await Promise.resolve(2)
@@ -376,7 +447,9 @@ const promise_value = ((async () => {
   console.log('Server online.') })()}
 ```
 
+### Generators
 
+TODO
 
 ### Keyword Operators
 
@@ -387,6 +460,7 @@ No special parsing is done for keywords *without* expressions.
 #### `if`/`else`, `while`, and `do`/`while`
 
 ```javascript
+// JSY
 if a > b ::
   console.log @ 'JSY is the best!'
 else if a < b ::
@@ -405,6 +479,7 @@ while 1
 Translated to JavaScript:
 
 ```javascript
+// JavaScript
 if (a > b) {
   console.log('JSY is the best!')
 } else if (a < b) {
@@ -425,6 +500,7 @@ do {
 #### `for`
 
 ```javascript
+// JSY
 for let i = 0; i < 10; i++ ::
   console.log @: i
 
@@ -436,7 +512,9 @@ for await const ea of someAsyncGenerator() ::
 ```
 
 Translated to JavaScript:
+
 ```javascript
+// JavaScript
 for (let i = 0; i < 10; i++) {
   console.log({i})
 }
@@ -453,6 +531,7 @@ for await (const ea of someAsyncGenerator()) {
 #### `try`, `catch`, and `finally`
 
 ```javascript
+// JSY
 try ::
   if 0.5 > Math.random() ::
     throw new Error @ 'Oops!'
@@ -462,7 +541,9 @@ finally ::
   console.log @ 'Finally.'
 ```
 Translated to JavaScript:
+
 ```javascript
+// JavaScript
 try {
   if (0.5 > Math.random()) {
     throw new Error('Oops!')
@@ -477,6 +558,7 @@ try {
 #### `switch`
 
 ```javascript
+// JSY
 switch command ::
   case 'play':
     player.play()
@@ -487,9 +569,11 @@ switch command ::
   default:
     player.stop().eject()
 ```
+
 Translated to JavaScript:
 
 ```javascript
+// JavaScript
 switch (command) {
   case 'play':
     player.play()
@@ -544,6 +628,12 @@ const calcScore = v => @
   v = clamp @ 0, 100, v
 ```
 
+### Idiom #3 - Order of Operations Laziness
+
+```javascript
+force += G * @ ( m1 * m2 ) / ( d * d )
+```
+
 ## JSY Integration with Other Tools
 
 ### Using `jsy-node` with NodeJS
@@ -585,7 +675,6 @@ $ mocha --require jsy-node/all some-unittest.jsy
 - [jsy-node](https://github.com/jsy-lang/jsy-node#readme) (_beta_)
   – Register runtime require handler for Offside (indention) JSY syntax transpiler to standard JavaScript.
 
-
 #### Babel Transpiler (_newer, beta_)
 
 - [babel-plugin-jsy-lite](https://github.com/jsy-lang/babel-plugin-jsy-lite#readme) (_**newer**, beta_)
@@ -600,7 +689,6 @@ $ mocha --require jsy-node/all some-unittest.jsy
 - [rollup-plugin-jsy-babel](https://github.com/jsy-lang/rollup-plugin-jsy-babel#readme) (_stable_)
   – [Babel][] configuration for using `babel-preset-jsy` in [Rollup][]
 
-
 ##### Misc Babel-based Tools
 
 - [jsy-rollup-bundler](https://github.com/jsy-lang/jsy-rollup-bundler#readme)
@@ -608,7 +696,6 @@ $ mocha --require jsy-node/all some-unittest.jsy
 
 - [babel-convert-jsy-from-js](https://github.com/jsy-lang/babel-convert-jsy-from-js#readme)
   – Convert JavaScript, Babel or Babylon AST into offside indented JSY formatted source code.
-
 
 #### Syntax Highlighters
 
@@ -619,7 +706,6 @@ $ mocha --require jsy-node/all some-unittest.jsy
 - [jsy-lang/prism-jsy](https://github.com/jsy-lang/prism-jsy#readme)
   - Basic [Prism](https://prismjs.com/) support for the JSY JavaScript dialect.
 - Hacked together [JSY CodeMirror mode](https://github.com/jsy-lang/jsy-lang.github.io/blob/master/js/mode/jsy/jsy.js) from the JavaScript mode.
-
 
 ### Real Syntax Highlighters Needed!
 Most JavaScript hightlighters work okay, but could certainly be better.
@@ -635,21 +721,20 @@ Most JavaScript hightlighters work okay, but could certainly be better.
   - for Atom – use the [language-babel](https://atom.io/packages/language-babel) plugin
   - for VSCode – use the [sublime-babel-vscode](https://marketplace.visualstudio.com/items?itemName=joshpeng.sublime-babel-vscode) or the [vscode-language-babel](https://marketplace.visualstudio.com/items?itemName=mgmcdermott.vscode-language-babel) plugin
 
-
 ## Projects using JSY
 
 - [shanewholloway/](https://github.com/shanewholloway) projects
   - Featured:
-    - [msg-fabric-core](https://github.com/shanewholloway/msg-fabric-core)
-    - [node-fate-observable](https://github.com/shanewholloway/node-fate-observable)
-    - [js-evtbus](https://github.com/shanewholloway/js-evtbus)
-    - [js-hashbelt](https://github.com/shanewholloway/js-hashbelt)
+     - [msg-fabric-core](https://github.com/shanewholloway/msg-fabric-core)
+     - [node-fate-observable](https://github.com/shanewholloway/node-fate-observable)
+     - [js-evtbus](https://github.com/shanewholloway/js-evtbus)
+     - [js-hashbelt](https://github.com/shanewholloway/js-hashbelt)
 
   - More:
-    - [node-shamir-tss-gf256](https://github.com/shanewholloway/node-shamir-tss-gf256)
-    - [js-object-functional](https://github.com/shanewholloway/js-object-functional)
-    - [js-revitalize-object](https://github.com/shanewholloway/js-revitalize-object)
-    - [js-consistent-fnvxor32](https://github.com/shanewholloway/js-consistent-fnvxor32)
+     - [node-shamir-tss-gf256](https://github.com/shanewholloway/node-shamir-tss-gf256)
+     - [js-object-functional](https://github.com/shanewholloway/js-object-functional)
+     - [js-revitalize-object](https://github.com/shanewholloway/js-revitalize-object)
+     - [js-consistent-fnvxor32](https://github.com/shanewholloway/js-consistent-fnvxor32)
 
 
 ## Thanks!
