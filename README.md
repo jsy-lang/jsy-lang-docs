@@ -28,7 +28,7 @@ transform code. Thus, as a JavaScript dialect, **JSY automatically keeps pace wi
 
 ## Quick Start
 
-Start with [rollup-plugin-jsy-lite](https://github.com/jsy-lang/rollup-plugin-jsy-lite#readme) or use the [playground](https://jsy-lang.github.io/)!
+Start with [rollup-plugin-jsy](https://github.com/jsy-lang/rollup-plugin-jsy#readme) or use the [playground](https://jsy-lang.github.io/)!
 
 Sample JSY code:
 
@@ -63,7 +63,7 @@ There are at-based (`@`), double colon-based (`::`), and keyword operators (`if`
     return a + b
   ```
 
-The double colon `::` in the preceding example opens a brace `{` when used, then closes the matching brace `}` when the indentation level matches that of the line it was first used on. The *indented block* is the return statement.
+The double colon `::` in the preceding example opens a brace `{`, then closes the matching brace `}` when the indentation level matches that of the line where it was opened. The *indented block* is the return statement.
 
 ### Implicit Leading Commas
 
@@ -276,7 +276,7 @@ Translated to JavaScript:
 const fn = async () => await dothings();
 ```
 
-#### `@::` At Block – Arrow Function Block with No Arguments
+#### `@::`, `@::>` At Block – Arrow Function Block with No Arguments (and `async`)
 
 The `@::` operator wraps the *indented block* in parentheses and begins an arrow function block `(()=> { «block» })`.
 
@@ -311,12 +311,19 @@ something @:
   evt: e => this.handle @ e
 ```
 
-Would still require the "opener" `@\` in order to declare more than one argument, eg.:
+Is valid on its own; however, to declare more than one argument it requires the "opener" `@\`, eg.:
 
 ```javascript
 // JSY
 something @:
   evt: @\ e, f => this.handle @ e, f
+```
+
+A variation of this is commonly seen in callback style, such as web servers:
+
+```javascript
+// JSY
+router.get @ '/endpoint', @\ request, response => response.send @ 'Hello, JSY!'
 ```
 
 Other arrow expressions:
